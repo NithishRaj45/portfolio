@@ -1,0 +1,483 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nithish Uppari | Tech Portfolio</title>
+    
+    <!-- Google Fonts: JetBrains Mono & Work Sans -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Work+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400&display=swap" rel="stylesheet">
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    
+    <!-- Inline SVG Favicon containing initials "NU" -->
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='20' fill='%234f46e5'/%3E%3Ctext x='50%25' y='55%25' dominant-baseline='middle' text-anchor='middle' font-family='monospace' font-weight='bold' font-size='40' fill='white'%3ENU%3C/text%3E%3C/svg%3E">
+
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['"Work Sans"', 'sans-serif'],
+                        mono: ['"JetBrains Mono"', 'monospace'],
+                    },
+                    colors: {
+                        indigo: {
+                            50: '#f5f3ff',
+                            100: '#ede9fe',
+                            500: '#6366f1',
+                            600: '#4f46e5',
+                            700: '#4338ca',
+                            800: '#3730a3',
+                            950: '#0c0a09',
+                        },
+                        editorial: {
+                            cream: '#FAF9F5',
+                            ink: '#111111',
+                            borders: '#D7D3C6',
+                            creamDark: '#121214',
+                            inkDark: '#E2E2E2',
+                            bordersDark: '#2D2D30',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    
+    <style>
+        /* Custom styled elements to fit modern editorial guidelines */
+        .editorial-grid {
+            background-image: linear-gradient(to right, var(--line-color, rgba(215, 211, 198, 0.4)) 1px, transparent 1px);
+            background-size: 8.333333% 100%;
+        }
+        .highlightable::selection {
+            background: #cbd5e1;
+            color: #000;
+        }
+        /* Custom highlight markers */
+        .marker-highlight {
+            background: linear-gradient(120deg, rgba(99, 102, 241, 0.15) 0%, rgba(99, 102, 241, 0.25) 100%);
+            transition: background 0.3s ease;
+        }
+        .marker-highlight-active {
+            background: linear-gradient(120deg, rgba(99, 102, 241, 0.4) 0%, rgba(99, 102, 241, 0.6) 100%) !important;
+            color: #000 !important;
+        }
+        .dark .marker-highlight-active {
+            color: #fff !important;
+        }
+    </style>
+</head>
+<body class="bg-editorial-cream text-editorial-ink dark:bg-editorial-creamDark dark:text-editorial-inkDark font-sans transition-colors duration-300 min-h-screen selection:bg-indigo-100 dark:selection:bg-indigo-900 selection:text-indigo-800 dark:selection:text-indigo-200">
+
+    <!-- Navigation / Header Toolbar -->
+    <header class="border-b border-editorial-borders dark:border-editorial-bordersDark py-4 px-6 md:px-12 sticky top-0 bg-editorial-cream/90 dark:bg-editorial-creamDark/90 backdrop-blur z-50 transition-colors duration-300">
+        <div class="max-w-7xl mx-auto flex justify-between items-center">
+            <div class="font-mono text-sm tracking-wider uppercase font-bold text-indigo-600 dark:text-indigo-500 flex items-center gap-2">
+                <span class="w-2.5 h-2.5 rounded-full bg-indigo-600 dark:bg-indigo-500 animate-pulse"></span>
+                Nithish Uppari / Issue 2026
+            </div>
+            <div class="flex items-center gap-6">
+                <!-- Theme Switcher -->
+                <button id="themeToggle" class="p-2 rounded-full border border-editorial-borders dark:border-editorial-bordersDark hover:bg-neutral-200 dark:hover:bg-neutral-800 transition" aria-label="Toggle Theme">
+                    <i data-lucide="sun" class="w-4 h-4 block dark:hidden"></i>
+                    <i data-lucide="moon" class="w-4 h-4 hidden dark:block"></i>
+                </button>
+                <!-- Active Interactive Highlighter Switch -->
+                <button id="highlightToggle" class="hidden sm:flex items-center gap-2 px-3 py-1.5 rounded-full text-xs font-mono border border-editorial-borders dark:border-editorial-bordersDark hover:border-indigo-500 transition-colors bg-white dark:bg-neutral-900" title="Click elements to highlight important text as you read.">
+                    <i data-lucide="highlighter" class="w-3.5 h-3.5 text-indigo-600 dark:text-indigo-400"></i>
+                    <span>Highlighter Mode</span>
+                    <span id="highlighterStatus" class="inline-block w-1.5 h-1.5 rounded-full bg-neutral-400"></span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Magazine Wrap -->
+    <main class="max-w-7xl mx-auto px-6 md:px-12 py-12 md:py-20">
+        
+        <!-- Big Editorial Masthead Header -->
+        <section class="border-b-4 border-editorial-ink dark:border-editorial-inkDark pb-10 mb-12">
+            <div class="text-xs font-mono uppercase tracking-widest text-neutral-500 dark:text-neutral-400 mb-4 flex justify-between">
+                <span>Published in Hyderabad, India</span>
+                <span>ID: 23R11A6793</span>
+            </div>
+            <h1 class="text-5xl md:text-8xl font-black tracking-tighter uppercase leading-none mb-6 highlightable">
+                NITHISH UPPARI
+            </h1>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 pt-6 border-t border-editorial-borders dark:border-editorial-bordersDark items-start">
+                <div class="md:col-span-2">
+                    <p class="text-xl md:text-2xl font-light italic leading-relaxed text-neutral-700 dark:text-neutral-300">
+                        B.Tech Computer Science student specializing in building structured backends, exploring modern Data Science pathways, and crafting elegant software models.
+                    </p>
+                </div>
+                <div class="flex flex-col md:items-end justify-between h-full gap-4 font-mono text-xs text-neutral-500 dark:text-neutral-400">
+                    <div>Currently in 4th Year @ GCET</div>
+                    <div class="flex gap-4">
+                        <a href="mailto:23r11a6793@gcet.edu.in" class="hover:text-indigo-600 dark:hover:text-indigo-400 flex items-center gap-1 transition-colors">
+                            <i data-lucide="mail" class="w-3.5 h-3.5"></i> Email
+                        </a>
+                        <a href="https://linkedin.com/in/nithish-uppari-23833a304" target="_blank" rel="noopener noreferrer" class="hover:text-indigo-600 dark:hover:text-indigo-400 flex items-center gap-1 transition-colors">
+                            <i data-lucide="linkedin" class="w-3.5 h-3.5"></i> LinkedIn
+                        </a>
+                        <a href="https://github.com/NithishRaj45" target="_blank" rel="noopener noreferrer" class="hover:text-indigo-600 dark:hover:text-indigo-400 flex items-center gap-1 transition-colors">
+                            <i data-lucide="github" class="w-3.5 h-3.5"></i> GitHub
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Editorial Two-Column Body Grid -->
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-12">
+            
+            <!-- LEFT COLUMN: The Lead Story / Pull-Quote (Span 8) -->
+            <section class="lg:col-span-8 space-y-12 border-b lg:border-b-0 lg:border-r border-editorial-borders dark:border-editorial-bordersDark pb-12 lg:pb-0 lg:pr-12">
+                
+                <!-- Large Feature Pull-Quote -->
+                <div class="relative py-8 px-6 bg-indigo-50 dark:bg-neutral-900/60 rounded-xl border-l-4 border-indigo-600">
+                    <span class="absolute top-2 left-4 text-6xl font-serif text-indigo-200 dark:text-indigo-950 pointer-events-none">“</span>
+                    <blockquote class="relative font-mono text-lg md:text-xl font-bold leading-relaxed text-indigo-950 dark:text-indigo-100 z-10 highlightable">
+                        I bridge the gap between structured backend architecture and analytical data pipelines—translating complex database architectures into performant, reliable user experiences.
+                    </blockquote>
+                    <cite class="block mt-4 text-xs font-mono uppercase tracking-widest text-neutral-500">— Candidate Overview</cite>
+                </div>
+
+                <!-- Story Section: About -->
+                <article class="space-y-4">
+                    <h2 class="font-mono text-xs uppercase tracking-widest text-indigo-600 dark:text-indigo-400 font-bold mb-2">Section I // The Narrative</h2>
+                    <h3 class="text-3xl font-extrabold tracking-tight">An Engineering Journey Anchored in Data and APIs</h3>
+                    <p class="text-neutral-700 dark:text-neutral-300 leading-relaxed text-lg highlightable">
+                        Presently in my fourth year pursuing a <strong>B.Tech in Computer Science and Engineering</strong> at Geethanjali College of Engineering and Technology, I find deep satisfaction in unraveling the complexities of system structures. 
+                    </p>
+                    <p class="text-neutral-700 dark:text-neutral-300 leading-relaxed text-lg highlightable">
+                        My practical experiences encompass a dedicated <strong>Data Science internship with Skill Dzire</strong>, where I worked extensively with foundational Python frameworks including NumPy and Pandas to filter insights from unstructured datasets. Complementing my analytical training is my love for full-stack engineering, which is materialized in robust REST API development using the MERN stack ecosystem.
+                    </p>
+                </article>
+
+                <!-- Projects Section -->
+                <section class="space-y-8 pt-6 border-t border-editorial-borders dark:border-editorial-bordersDark">
+                    <div>
+                        <h2 class="font-mono text-xs uppercase tracking-widest text-indigo-600 dark:text-indigo-400 font-bold mb-2">Section II // Featured Projects</h2>
+                        <h3 class="text-3xl font-extrabold tracking-tight">Asymmetric Portfolios</h3>
+                    </div>
+
+                    <div class="space-y-8">
+                        <!-- Project 1 -->
+                        <div class="group border border-editorial-borders dark:border-editorial-bordersDark p-6 rounded-xl hover:border-indigo-600 dark:hover:border-indigo-500 transition-all hover:shadow-lg bg-white dark:bg-neutral-900/40">
+                            <div class="flex justify-between items-start gap-4 mb-3">
+                                <div>
+                                    <span class="text-xs font-mono uppercase tracking-widest text-neutral-400">01 / Backend Engineering</span>
+                                    <h4 class="text-2xl font-bold group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition-colors mt-1">Social Media Backend</h4>
+                                </div>
+                                <a href="https://github.com/NithishRaj45" target="_blank" rel="noopener noreferrer" class="p-2 border border-editorial-borders dark:border-editorial-bordersDark rounded-full hover:bg-neutral-100 dark:hover:bg-neutral-800 transition" aria-label="GitHub Repository">
+                                    <i data-lucide="github" class="w-4 h-4"></i>
+                                </a>
+                            </div>
+                            <p class="text-neutral-600 dark:text-neutral-400 mb-6 leading-relaxed highlightable">
+                                Engineered a scalable RESTful backend architecture supporting active social interactions. Built authentication layers with JSON Web Tokens (JWT) and verified all API interactions utilizing Postman within an organized MVC architecture.
+                            </p>
+                            <div class="flex flex-wrap gap-2 mb-4">
+                                <span class="px-2.5 py-1 text-xs font-mono bg-neutral-100 dark:bg-neutral-800 rounded">Node.js</span>
+                                <span class="px-2.5 py-1 text-xs font-mono bg-neutral-100 dark:bg-neutral-800 rounded">Express.js</span>
+                                <span class="px-2.5 py-1 text-xs font-mono bg-neutral-100 dark:bg-neutral-800 rounded">MongoDB</span>
+                                <span class="px-2.5 py-1 text-xs font-mono bg-neutral-100 dark:bg-neutral-800 rounded">Mongoose</span>
+                                <span class="px-2.5 py-1 text-xs font-mono bg-neutral-100 dark:bg-neutral-800 rounded">JWT</span>
+                            </div>
+                            <div class="flex gap-4">
+                                <a href="https://github.com/NithishRaj45" target="_blank" rel="noopener noreferrer" class="text-sm font-mono font-bold text-indigo-600 dark:text-indigo-400 flex items-center gap-1 group-hover:underline">
+                                    Source Directory <i data-lucide="arrow-up-right" class="w-3.5 h-3.5"></i>
+                                </a>
+                            </div>
+                        </div>
+
+                        <!-- Project 2 -->
+                        <div class="group border border-editorial-borders dark:border-editorial-bordersDark p-6 rounded-xl hover:border-indigo-600 dark:hover:border-indigo-500 transition-all hover:shadow-lg bg-white dark:bg-neutral-900/40">
+                            <div class="flex justify-between items-start gap-4 mb-3">
+                                <div>
+                                    <span class="text-xs font-mono uppercase tracking-widest text-neutral-400">02 / Data Science & Analytics</span>
+                                    <h4 class="text-2xl font-bold group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition-colors mt-1">Netflix Data Analysis Model</h4>
+                                </div>
+                                <a href="https://github.com/NithishRaj45" target="_blank" rel="noopener noreferrer" class="p-2 border border-editorial-borders dark:border-editorial-bordersDark rounded-full hover:bg-neutral-100 dark:hover:bg-neutral-800 transition" aria-label="GitHub Repository">
+                                    <i data-lucide="github" class="w-4 h-4"></i>
+                                </a>
+                            </div>
+                            <p class="text-neutral-600 dark:text-neutral-400 mb-6 leading-relaxed highlightable">
+                                Conducted in-depth cleaning and Exploratory Data Analysis (EDA) on a dynamic Netflix movies & TV shows dataset. Evaluated regional content patterns, release intervals, and trending genres using specialized multi-dimensional array operations.
+                            </p>
+                            <div class="flex flex-wrap gap-2 mb-4">
+                                <span class="px-2.5 py-1 text-xs font-mono bg-neutral-100 dark:bg-neutral-800 rounded">Python</span>
+                                <span class="px-2.5 py-1 text-xs font-mono bg-neutral-100 dark:bg-neutral-800 rounded">Pandas</span>
+                                <span class="px-2.5 py-1 text-xs font-mono bg-neutral-100 dark:bg-neutral-800 rounded">NumPy</span>
+                                <span class="px-2.5 py-1 text-xs font-mono bg-neutral-100 dark:bg-neutral-800 rounded">EDA</span>
+                            </div>
+                            <div class="flex gap-4">
+                                <a href="https://github.com/NithishRaj45" target="_blank" rel="noopener noreferrer" class="text-sm font-mono font-bold text-indigo-600 dark:text-indigo-400 flex items-center gap-1 group-hover:underline">
+                                    Source Directory <i data-lucide="arrow-up-right" class="w-3.5 h-3.5"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </section>
+
+            <!-- RIGHT COLUMN: Metadata / Academic Records / Skills (Span 4) -->
+            <aside class="lg:col-span-4 space-y-10">
+                
+                <!-- Section: Skills Grid -->
+                <div class="border border-editorial-borders dark:border-editorial-bordersDark p-6 rounded-xl bg-white dark:bg-neutral-900/40">
+                    <h2 class="font-mono text-xs uppercase tracking-widest text-indigo-600 dark:text-indigo-400 font-bold mb-4 flex items-center gap-2">
+                        <i data-lucide="cpu" class="w-4 h-4"></i> Technical Index
+                    </h2>
+                    
+                    <div class="space-y-6">
+                        <!-- Languages -->
+                        <div>
+                            <span class="text-xs font-mono uppercase text-neutral-400 block mb-2">Languages</span>
+                            <div class="flex flex-wrap gap-1.5">
+                                <span class="px-2 py-1 text-xs bg-neutral-100 dark:bg-neutral-800 rounded border border-neutral-200 dark:border-neutral-700 font-mono">Java</span>
+                                <span class="px-2 py-1 text-xs bg-neutral-100 dark:bg-neutral-800 rounded border border-neutral-200 dark:border-neutral-700 font-mono">Python</span>
+                                <span class="px-2 py-1 text-xs bg-neutral-100 dark:bg-neutral-800 rounded border border-neutral-200 dark:border-neutral-700 font-mono">JavaScript</span>
+                                <span class="px-2 py-1 text-xs bg-neutral-100 dark:bg-neutral-800 rounded border border-neutral-200 dark:border-neutral-700 font-mono">SQL</span>
+                            </div>
+                        </div>
+
+                        <!-- Backend & Database -->
+                        <div>
+                            <span class="text-xs font-mono uppercase text-neutral-400 block mb-2">Backend & Database</span>
+                            <div class="flex flex-wrap gap-1.5">
+                                <span class="px-2 py-1 text-xs bg-neutral-100 dark:bg-neutral-800 rounded border border-neutral-200 dark:border-neutral-700 font-mono">Node.js</span>
+                                <span class="px-2 py-1 text-xs bg-neutral-100 dark:bg-neutral-800 rounded border border-neutral-200 dark:border-neutral-700 font-mono">Express.js</span>
+                                <span class="px-2 py-1 text-xs bg-neutral-100 dark:bg-neutral-800 rounded border border-neutral-200 dark:border-neutral-700 font-mono">MongoDB</span>
+                                <span class="px-2 py-1 text-xs bg-neutral-100 dark:bg-neutral-800 rounded border border-neutral-200 dark:border-neutral-700 font-mono">MySQL</span>
+                            </div>
+                        </div>
+
+                        <!-- Frontend -->
+                        <div>
+                            <span class="text-xs font-mono uppercase text-neutral-400 block mb-2">Frontend</span>
+                            <div class="flex flex-wrap gap-1.5">
+                                <span class="px-2 py-1 text-xs bg-indigo-50 dark:bg-indigo-950/40 text-indigo-700 dark:text-indigo-400 rounded border border-indigo-200 dark:border-indigo-800/60 font-mono font-semibold">React.js</span>
+                                <span class="px-2 py-1 text-xs bg-neutral-100 dark:bg-neutral-800 rounded border border-neutral-200 dark:border-neutral-700 font-mono">HTML5</span>
+                                <span class="px-2 py-1 text-xs bg-neutral-100 dark:bg-neutral-800 rounded border border-neutral-200 dark:border-neutral-700 font-mono">CSS3</span>
+                            </div>
+                        </div>
+
+                        <!-- Data Science & Libraries -->
+                        <div>
+                            <span class="text-xs font-mono uppercase text-neutral-400 block mb-2">Data Science & Tools</span>
+                            <div class="flex flex-wrap gap-1.5">
+                                <span class="px-2 py-1 text-xs bg-neutral-100 dark:bg-neutral-800 rounded border border-neutral-200 dark:border-neutral-700 font-mono">NumPy</span>
+                                <span class="px-2 py-1 text-xs bg-neutral-100 dark:bg-neutral-800 rounded border border-neutral-200 dark:border-neutral-700 font-mono">Pandas</span>
+                                <span class="px-2 py-1 text-xs bg-neutral-100 dark:bg-neutral-800 rounded border border-neutral-200 dark:border-neutral-700 font-mono">Git / GitHub</span>
+                                <span class="px-2 py-1 text-xs bg-neutral-100 dark:bg-neutral-800 rounded border border-neutral-200 dark:border-neutral-700 font-mono">VS Code</span>
+                            </div>
+                        </div>
+
+                        <!-- Concepts -->
+                        <div>
+                            <span class="text-xs font-mono uppercase text-neutral-400 block mb-2">Core Concepts</span>
+                            <div class="flex flex-wrap gap-1.5">
+                                <span class="px-2 py-1 text-xs bg-neutral-100 dark:bg-neutral-800 rounded border border-neutral-200 dark:border-neutral-700 font-mono">REST APIs</span>
+                                <span class="px-2 py-1 text-xs bg-neutral-100 dark:bg-neutral-800 rounded border border-neutral-200 dark:border-neutral-700 font-mono">OOP</span>
+                                <span class="px-2 py-1 text-xs bg-neutral-100 dark:bg-neutral-800 rounded border border-neutral-200 dark:border-neutral-700 font-mono">Machine Learning</span>
+                                <span class="px-2 py-1 text-xs bg-neutral-100 dark:bg-neutral-800 rounded border border-neutral-200 dark:border-neutral-700 font-mono">Data Structures</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Section: Education & Internships -->
+                <div class="border border-editorial-borders dark:border-editorial-bordersDark p-6 rounded-xl bg-white dark:bg-neutral-900/40">
+                    <h2 class="font-mono text-xs uppercase tracking-widest text-indigo-600 dark:text-indigo-400 font-bold mb-4 flex items-center gap-2">
+                        <i data-lucide="award" class="w-4 h-4"></i> Academic Journal
+                    </h2>
+                    
+                    <div class="space-y-6 font-mono text-sm">
+                        <!-- GCET -->
+                        <div class="border-l-2 border-indigo-600 pl-4 py-1">
+                            <span class="text-xs text-neutral-400 block">2026 - Present</span>
+                            <h4 class="font-bold text-neutral-800 dark:text-neutral-200">B.Tech (CSE)</h4>
+                            <p class="text-xs text-neutral-500">Geethanjali College of Eng. & Tech</p>
+                            <span class="inline-block mt-1 px-1.5 py-0.5 text-[10px] bg-neutral-100 dark:bg-neutral-800 rounded text-neutral-500">4th Year Student</span>
+                        </div>
+
+                        <!-- Skill Dzire Internship -->
+                        <div class="border-l-2 border-indigo-600 pl-4 py-1">
+                            <span class="text-xs text-neutral-400 block">2025</span>
+                            <h4 class="font-bold text-neutral-800 dark:text-neutral-200">Data Science Intern</h4>
+                            <p class="text-xs text-neutral-500">Skill Dzire Training Program</p>
+                            <p class="text-[11px] text-neutral-400 mt-1 font-sans">Focused on ML principles, data preparation, and visual exploration strategies.</p>
+                        </div>
+
+                        <!-- SR Junior College -->
+                        <div class="border-l-2 border-neutral-300 dark:border-neutral-700 pl-4 py-1">
+                            <span class="text-xs text-neutral-400 block">2023 Completed</span>
+                            <h4 class="font-bold text-neutral-800 dark:text-neutral-200">Intermediate (Class XII)</h4>
+                            <p class="text-xs text-neutral-500">SR Junior College, Nizamabad</p>
+                            <span class="text-xs text-indigo-600 dark:text-indigo-400 font-bold">Marks: 983 / 1000</span>
+                        </div>
+
+                        <!-- Krishnaveni High School -->
+                        <div class="border-l-2 border-neutral-300 dark:border-neutral-700 pl-4 py-1">
+                            <span class="text-xs text-neutral-400 block">2021 Completed</span>
+                            <h4 class="font-bold text-neutral-800 dark:text-neutral-200">Secondary (Class X)</h4>
+                            <p class="text-xs text-neutral-500">Krishnaveni High School</p>
+                            <span class="text-xs text-indigo-600 dark:text-indigo-400 font-bold">CGPA: 10.0 / 10.0</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Section: Certifications & Verification -->
+                <div class="border border-editorial-borders dark:border-editorial-bordersDark p-6 rounded-xl bg-white dark:bg-neutral-900/40">
+                    <h2 class="font-mono text-xs uppercase tracking-widest text-indigo-600 dark:text-indigo-400 font-bold mb-4 flex items-center gap-2">
+                        <i data-lucide="shield-check" class="w-4 h-4"></i> Certifications
+                    </h2>
+                    
+                    <div class="space-y-4">
+                        <div class="p-3 bg-neutral-50 dark:bg-neutral-800/50 rounded border border-neutral-200 dark:border-neutral-700 font-mono text-xs">
+                            <h4 class="font-bold text-neutral-800 dark:text-neutral-200">Data Science Certification</h4>
+                            <p class="text-[10px] text-neutral-400 mt-0.5">Skill Dzire Internship</p>
+                            <span class="text-indigo-600 dark:text-indigo-400 block mt-2 text-[10px] uppercase font-bold">Status: Verified Academic</span>
+                        </div>
+                        <div class="p-3 bg-neutral-50 dark:bg-neutral-800/50 rounded border border-neutral-200 dark:border-neutral-700 font-mono text-xs">
+                            <h4 class="font-bold text-neutral-800 dark:text-neutral-200">SQL & Java Fundamentals</h4>
+                            <p class="text-[10px] text-neutral-400 mt-0.5">Oracle Academic Certificate</p>
+                            <span class="text-indigo-600 dark:text-indigo-400 block mt-2 text-[10px] uppercase font-bold">Status: Verified Academic</span>
+                        </div>
+                    </div>
+                </div>
+            </aside>
+        </div>
+
+        <!-- Footer / Contact Block -->
+        <footer class="border-t-4 border-editorial-ink dark:border-editorial-inkDark mt-20 pt-10 pb-6">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-end">
+                <div>
+                    <h2 class="text-xs font-mono uppercase tracking-widest text-indigo-600 dark:text-indigo-400 font-bold mb-4">Section III // Network Connection</h2>
+                    <h3 class="text-3xl font-extrabold tracking-tight mb-4">Establish Business Correspondence</h3>
+                    <p class="text-neutral-600 dark:text-neutral-400 leading-relaxed mb-6 font-mono text-xs">
+                        Open for collaborative database designs, system integration structures, and analytical application programming. Use the copy widget below or direct mailbox link.
+                    </p>
+                    
+                    <!-- Copy Email Widget -->
+                    <div class="flex items-center gap-2 max-w-sm">
+                        <div id="emailAddress" class="bg-neutral-100 dark:bg-neutral-800 p-2.5 rounded-lg text-xs font-mono select-all overflow-hidden text-ellipsis whitespace-nowrap flex-grow border border-neutral-200 dark:border-neutral-700">
+                            23r11a6793@gcet.edu.in
+                        </div>
+                        <button id="copyEmailBtn" class="bg-indigo-600 text-white hover:bg-indigo-700 p-2.5 rounded-lg text-xs font-mono transition-colors flex items-center gap-1.5" title="Copy Address">
+                            <i data-lucide="copy" class="w-4 h-4"></i>
+                            <span class="hidden sm:inline">Copy</span>
+                        </button>
+                    </div>
+                    <div id="copyFeedback" class="text-[11px] text-emerald-600 dark:text-emerald-400 mt-1 font-mono hidden">
+                        Copied successfully to clipboard!
+                    </div>
+                </div>
+
+                <div class="flex flex-col md:items-end gap-6">
+                    <!-- Navigation / Top Anchor Link -->
+                    <a href="#" class="text-xs font-mono font-bold tracking-wider hover:text-indigo-600 dark:hover:text-indigo-400 flex items-center gap-1.5 border border-editorial-borders dark:border-editorial-bordersDark px-4 py-2 rounded-full bg-white dark:bg-neutral-900 transition-colors shadow-sm">
+                        Return to Header <i data-lucide="arrow-up" class="w-3.5 h-3.5"></i>
+                    </a>
+                    
+                    <div class="text-xs font-mono text-neutral-400 dark:text-neutral-500 text-left md:text-right">
+                        &copy; 2026 Nithish Uppari. Set in JetBrains Mono & Work Sans. No templates used.
+                    </div>
+                </div>
+            </div>
+        </footer>
+    </main>
+
+    <!-- Scripts for theme and highlighter functionality -->
+    <script>
+        // Initialize Lucide Icons
+        lucide.createIcons();
+
+        // Theme Switch Logic
+        const themeToggle = document.getElementById('themeToggle');
+        const html = document.documentElement;
+
+        // Sync with local preference
+        if (localStorage.getItem('theme') === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+            html.classList.add('dark');
+        } else {
+            html.classList.remove('dark');
+        }
+
+        themeToggle.addEventListener('click', () => {
+            if (html.classList.contains('dark')) {
+                html.classList.remove('dark');
+                localStorage.setItem('theme', 'light');
+            } else {
+                html.classList.add('dark');
+                localStorage.setItem('theme', 'dark');
+            }
+        });
+
+        // Email Clipboard Copy Implementation
+        const copyBtn = document.getElementById('copyEmailBtn');
+        const emailDiv = document.getElementById('emailAddress');
+        const feedbackDiv = document.getElementById('copyFeedback');
+
+        copyBtn.addEventListener('click', () => {
+            const tempInput = document.createElement('input');
+            tempInput.value = emailDiv.innerText.trim();
+            document.body.appendChild(tempInput);
+            tempInput.select();
+            document.execCommand('copy');
+            document.body.removeChild(tempInput);
+
+            feedbackDiv.classList.remove('hidden');
+            setTimeout(() => {
+                feedbackDiv.classList.add('hidden');
+            }, 3000);
+        });
+
+        // Interactive Editorial Highlighter Mode Logic
+        const highlightToggle = document.getElementById('highlightToggle');
+        const statusMarker = document.getElementById('highlighterStatus');
+        const highlightableElements = document.querySelectorAll('.highlightable');
+        let highlighterActive = false;
+
+        highlightToggle.addEventListener('click', () => {
+            highlighterActive = !highlighterActive;
+            if (highlighterActive) {
+                statusMarker.classList.remove('bg-neutral-400');
+                statusMarker.classList.add('bg-indigo-600', 'dark:bg-indigo-400', 'animate-pulse');
+                highlightToggle.classList.add('border-indigo-600', 'dark:border-indigo-400');
+                
+                // Set custom cursor or highlight styles
+                highlightableElements.forEach(el => {
+                    el.classList.add('cursor-crosshair', 'marker-highlight');
+                });
+            } else {
+                statusMarker.classList.remove('bg-indigo-600', 'dark:bg-indigo-400', 'animate-pulse');
+                statusMarker.classList.add('bg-neutral-400');
+                highlightToggle.classList.remove('border-indigo-600', 'dark:border-indigo-400');
+                
+                highlightableElements.forEach(el => {
+                    el.classList.remove('cursor-crosshair', 'marker-highlight', 'marker-highlight-active');
+                });
+            }
+        });
+
+        // Handle item clicking for highlighter effect
+        highlightableElements.forEach(el => {
+            el.addEventListener('click', () => {
+                if (highlighterActive) {
+                    el.classList.toggle('marker-highlight-active');
+                }
+            });
+        });
+    </script>
+</body>
+</html>
